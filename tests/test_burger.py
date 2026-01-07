@@ -31,8 +31,8 @@ class TestBurger:
     def test_get_receipt(self, burger, mock_bun, mock_sauce):
         burger.set_buns(mock_bun)
         burger.add_ingredient(mock_sauce)
-        receipt = burger.get_receipt()
-        assert type(burger.get_receipt()) == str
-        assert mock_bun.get_name.return_value in receipt
-        assert mock_sauce.get_name.return_value in receipt
-        assert str(burger.get_price()) in receipt
+        assert burger.get_receipt() == (f'(==== {mock_bun.get_name.return_value} ====)\n'
+                                        f'= {mock_sauce.get_type.return_value.lower()} {mock_sauce.get_name.return_value} =\n'
+                                        f'(==== {mock_bun.get_name.return_value} ====)\n'
+                                        f'\n'
+                                        f'Price: {burger.get_price()}')
